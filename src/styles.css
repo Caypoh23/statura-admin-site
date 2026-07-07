@@ -18,11 +18,16 @@
   box-sizing: border-box;
 }
 
+html {
+  min-width: 320px;
+}
+
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-wrap: anywhere;
 }
 
 button,
@@ -37,7 +42,7 @@ button {
 #app {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
 }
 
 .sidebar {
@@ -53,6 +58,7 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .brand-mark {
@@ -69,6 +75,22 @@ button {
 .empty,
 .eyebrow {
   color: var(--muted);
+}
+
+.brand div,
+.topbar > div,
+.panel-header > div,
+.content-row > div,
+.data-row > div,
+.row-card > *,
+.message-meta > *,
+.audit-copy p > *,
+.thread-context > *,
+.metric,
+.panel,
+.detail,
+.list {
+  min-width: 0;
 }
 
 .nav {
@@ -130,6 +152,16 @@ button {
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
+  min-width: 0;
+}
+
+.topbar {
+  flex-wrap: wrap;
+}
+
+.content {
+  display: grid;
+  gap: 18px;
 }
 
 h1,
@@ -163,6 +195,10 @@ h2 {
   padding: 18px;
 }
 
+.content > .panel:first-child {
+  margin-top: 0;
+}
+
 .grid {
   display: grid;
   gap: 14px;
@@ -176,6 +212,7 @@ label {
   display: grid;
   gap: 6px;
   color: var(--muted);
+  min-width: 0;
 }
 
 input {
@@ -189,11 +226,13 @@ input {
 
 .form-actions,
 .topbar-actions,
+.panel-tools,
 .actions {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .primary,
@@ -243,6 +282,7 @@ input {
   color: var(--muted);
   background: #0f141b;
   white-space: nowrap;
+  max-width: 100%;
 }
 
 .metrics {
@@ -280,8 +320,9 @@ input {
 .split {
   margin-top: 14px;
   display: grid;
-  grid-template-columns: minmax(280px, 380px) 1fr;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
   gap: 14px;
+  min-width: 0;
 }
 
 .list {
@@ -303,6 +344,7 @@ input {
   border-radius: var(--radius);
   padding: 12px;
   text-align: left;
+  min-width: 0;
 }
 
 .row-card {
@@ -319,15 +361,13 @@ input {
 .row-card em {
   color: var(--muted);
   font-style: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .row-card small,
 time {
   color: var(--muted);
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .detail {
@@ -336,6 +376,7 @@ time {
   border-radius: var(--radius);
   padding: 14px;
   min-height: 360px;
+  overflow: hidden;
 }
 
 .thread-context {
@@ -369,6 +410,7 @@ time {
 .content-list {
   display: grid;
   gap: 10px;
+  min-width: 0;
 }
 
 .ai-audit-list {
@@ -433,6 +475,7 @@ time {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .message-meta time {
@@ -451,6 +494,7 @@ time {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
+  max-width: 100%;
 }
 
 .segmented button {
@@ -503,6 +547,7 @@ dd {
   padding: 12px;
   background: #090d12;
   color: #d8e1ee;
+  white-space: pre-wrap;
 }
 
 .table-wrap {
@@ -565,5 +610,72 @@ td {
 
   .sidebar {
     position: static;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .main {
+    padding: 18px;
+  }
+
+  .content-row {
+    gap: 14px;
+  }
+
+  .message-meta time {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .sidebar {
+    padding: 14px;
+  }
+
+  .main {
+    padding: 14px;
+  }
+
+  .auth-panel,
+  .panel {
+    padding: 14px;
+  }
+
+  .panel-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .panel-tools {
+    align-items: stretch;
+  }
+
+  .segmented {
+    overflow-x: auto;
+  }
+
+  .actions {
+    align-items: stretch;
+  }
+
+  .actions button {
+    flex: 1 1 124px;
+  }
+
+  .nav {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics {
+    gap: 10px;
+  }
+
+  .metric strong {
+    font-size: 28px;
   }
 }

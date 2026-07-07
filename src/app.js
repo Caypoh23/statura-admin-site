@@ -17,6 +17,7 @@ const state = {
   profile: null,
   view: "dashboard",
   reportsStatus: "open",
+  threadStatus: "all",
   selectedReport: null,
   selectedThreadId: null
 };
@@ -121,7 +122,7 @@ async function loadProfile() {
     setConnection("Signed in user is not admin", "danger");
     return;
   }
-    setConnection(`Admin: ${data.name || data.phone || data.id}`, "success");
+  setConnection(`Admin: ${data.name || data.phone || data.id}`, "success");
 }
 
 function updateAuthVisibility() {
@@ -329,7 +330,12 @@ async function renderThreadConsole({ onlyAi }) {
   const { data, error } = await state.client.rpc("admin_chat_threads_overview");
   if (error) throw error;
   const aiAudit = onlyAi ? await fetchAiAudit() : [];
-  const threads = (data || []).filter((thread) => !onlyAi || thread.is_ai);
+  const threads = (data || []).filter((thread) => {
+    if (onlyAi && !thread.is_ai) return false;
+    if (state.threadStatus === "flagged") return (thread.flagged_count || 0) > 0;
+    if (state.threadStatus === "hidden") return (thread.hidden_count || 0) > 0;
+    return true;
+  });
   const selected =
     threads.find((thread) => thread.id === state.selectedThreadId) ||
     threads[0] ||
@@ -359,7 +365,17 @@ async function renderThreadConsole({ onlyAi }) {
           <p class="eyebrow">${onlyAi ? "AI supervision" : "Support review"}</p>
           <h2>${onlyAi ? "AI conversations" : "Chat messages"}</h2>
         </div>
-        ${badge(`${threads.length} threads`)}
+        <div class="panel-tools">
+          <div class="segmented">
+            ${["all", "flagged", "hidden"]
+              .map(
+                (status) =>
+                  `<button class="${state.threadStatus === status ? "active" : ""}" data-thread-status="${status}">${status}</button>`
+              )
+              .join("")}
+          </div>
+          ${badge(`${threads.length} threads`)}
+        </div>
       </div>
       <div class="split">
         <div class="list thread-list">
@@ -374,6 +390,13 @@ async function renderThreadConsole({ onlyAi }) {
     button.addEventListener("click", async () => {
       state.selectedThreadId = button.dataset.threadId;
       await renderThreadDetail();
+    });
+  });
+  el.contentRoot.querySelectorAll("[data-thread-status]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      state.threadStatus = button.dataset.threadStatus;
+      state.selectedThreadId = null;
+      await renderThreadConsole({ onlyAi });
     });
   });
 
