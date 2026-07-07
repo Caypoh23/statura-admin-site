@@ -55,6 +55,17 @@ Open `http://localhost:4173`.
 
 ## Hosting
 
+Current deployment:
+
+- Repo: `https://github.com/Caypoh23/statura-admin-site`
+- URL: `https://caypoh23.github.io/statura-admin-site/`
+
+This repository is a public GitHub Pages artifact because the current GitHub
+plan does not support Pages for the private `statura-admin` source repo. It
+contains only browser-safe static files and the public Supabase anon key. Data
+access still requires Supabase Auth with `profiles.role = 'admin'`; no
+`service_role` key is exposed.
+
 This is a static site. Recommended deployment:
 
 1. Host on Vercel, Netlify, Cloudflare Pages, or any private static host.
