@@ -4,7 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npx --yes serve . -l 4173",
-    "check": "node --check src/app.js && node --check src/supabaseClient.js"
+    "dev": "npm run prepare:dev && npx --yes serve . -l 4173",
+    "dev:prod": "npm run prepare:prod && npx --yes serve . -l 4173",
+    "prepare:dev": "node scripts/prepare-config.mjs dev",
+    "prepare:prod": "node scripts/prepare-config.mjs prod",
+    "build:dev": "node scripts/build-static.mjs dev",
+    "build:prod": "node scripts/build-static.mjs prod",
+    "check": "node --check src/app.js && node --check src/supabaseClient.js && node --check scripts/prepare-config.mjs && node --check scripts/build-static.mjs"
   }
 }

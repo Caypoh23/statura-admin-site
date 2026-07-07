@@ -1,6 +1,10 @@
 import { createSupabaseClient } from "./supabaseClient.js";
 
 const config = {
+  appEnv:
+    window.STATURA_ADMIN_CONFIG?.appEnv ||
+    localStorage.getItem("statura.admin.appEnv") ||
+    "prod",
   supabaseUrl:
     window.STATURA_ADMIN_CONFIG?.supabaseUrl ||
     localStorage.getItem("statura.admin.supabaseUrl") ||
@@ -84,6 +88,7 @@ async function connectAndLogin() {
 
   localStorage.setItem("statura.admin.supabaseUrl", supabaseUrl);
   localStorage.setItem("statura.admin.supabaseAnonKey", supabaseAnonKey);
+  localStorage.setItem("statura.admin.appEnv", config.appEnv);
   state.client = await createSupabaseClient({ supabaseUrl, supabaseAnonKey });
 
   const payload = login.includes("@")
@@ -122,7 +127,7 @@ async function loadProfile() {
     setConnection("Signed in user is not admin", "danger");
     return;
   }
-  setConnection(`Admin: ${data.name || data.phone || data.id}`, "success");
+  setConnection(`${config.appEnv.toUpperCase()} admin: ${data.name || data.phone || data.id}`, "success");
 }
 
 function updateAuthVisibility() {
