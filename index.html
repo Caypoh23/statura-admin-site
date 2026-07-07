@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Statura Admin</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+    <script src="./config.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <img class="brand-mark" src="./assets/statura_s_bolt_variant_01_top_left.svg" alt="Statura" />
+          <div>
+            <strong>Statura</strong>
+            <span>Admin console</span>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Admin sections">
+          <button class="nav-item active" data-view="dashboard">Dashboard</button>
+          <button class="nav-item" data-view="reports">Reports</button>
+          <button class="nav-item" data-view="content">Trainer content</button>
+          <button class="nav-item" data-view="messages">Chat messages</button>
+          <button class="nav-item" data-view="aichats">AI conversations</button>
+          <button class="nav-item" data-view="users">Users</button>
+          <button class="nav-item" data-view="audit">Audit log</button>
+        </nav>
+        <div class="sidebar-foot">
+          <div class="connection" id="connectionState">Not connected</div>
+          <button class="text-button" id="signOutButton" hidden>Sign out</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="topbar">
+          <div>
+            <p class="eyebrow">Operations</p>
+            <h1 id="pageTitle">Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="secondary" id="refreshButton">Refresh</button>
+          </div>
+        </section>
+
+        <section class="auth-panel" id="authPanel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Admin access</p>
+              <h2>Connect to Statura Supabase</h2>
+            </div>
+            <span class="badge neutral">RLS protected</span>
+          </div>
+          <div class="grid two">
+            <label>
+              Supabase URL
+              <input id="supabaseUrlInput" placeholder="https://project.supabase.co" />
+            </label>
+            <label>
+              Supabase anon key
+              <input id="supabaseAnonInput" placeholder="eyJ..." />
+            </label>
+            <label>
+              Admin phone or email
+              <input id="loginInput" placeholder="+998901234567 or admin@statura.uz" />
+            </label>
+            <label>
+              Password
+              <input id="passwordInput" type="password" placeholder="Password" />
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="primary" id="connectButton">Connect and sign in</button>
+            <p class="hint">The admin user must have <code>profiles.role = 'admin'</code>.</p>
+          </div>
+        </section>
+
+        <section class="content" id="contentRoot" hidden></section>
+      </main>
+    </div>
+
+    <template id="loadingTemplate">
+      <div class="state">
+        <div class="spinner"></div>
+        <p>Loading data...</p>
+      </div>
+    </template>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

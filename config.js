@@ -1,0 +1,4 @@
+window.STATURA_ADMIN_CONFIG = {
+  supabaseUrl: "https://kshjwwuacpxjkoqvosva.supabase.co",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtzaGp3d3VhY3B4amtvcXZvc3ZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyOTQ0OTgsImV4cCI6MjA5Nzg3MDQ5OH0.QghUSQO4ew_Ho6fGfJ0TVm0_vv5PneiS7Ke3JT1Uako"
+};

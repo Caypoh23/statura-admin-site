@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="Statura S lightning app icon variant">
+  <defs>
+    <clipPath id="icon-mask-statura-01">
+      <rect x="0" y="0" width="1024" height="1024" rx="210" ry="210"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#icon-mask-statura-01)">
+    <rect x="0" y="0" width="1024" height="1024" fill="#0d1117"/>
+    <path d="M 871.21 133.28 L 364.09 295.82 L 240.56 549.38 L 585.14 539.63 L 494.12 624.15 L 412.85 633.90 L 178.79 880.97 L 666.41 659.91 L 786.69 451.86 L 776.94 429.10 L 425.85 455.11 L 494.12 364.09 L 607.90 357.59 Z" fill="#d7ff3f"/>
+  </g>
+</svg>
